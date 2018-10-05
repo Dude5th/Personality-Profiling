@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import './NavMenu.css';
+import './navMenu.css';
 
 export class NavMenu extends Component {
   displayName = NavMenu.name
@@ -12,7 +12,7 @@ export class NavMenu extends Component {
       <Navbar inverse fixedTop fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to={'/'}>PersonalityProfiling</Link>
+            <Link to={'/'}>Personality Profiling</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -31,6 +31,11 @@ export class NavMenu extends Component {
             <LinkContainer to={'/fetchdata'}>
               <NavItem>
                 <Glyphicon glyph='th-list' /> Fetch data
+              </NavItem>
+            </LinkContainer>
+            <LinkContainer to={'/semantic-ui'}>
+              <NavItem>
+                <Glyphicon glyph='th-list' /> Semantic look
               </NavItem>
             </LinkContainer>
           </Nav>

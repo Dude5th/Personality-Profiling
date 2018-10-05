@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
-import { Col, Grid, Row } from 'react-bootstrap';
-import { NavMenu } from './NavMenu';
+import { Grid } from 'semantic-ui-react'
+import { NavMenu } from './navMenu/navMenu';
 
 export class Layout extends Component {
-  displayName = Layout.name
+  displayName = Layout.name;
 
   render() {
     return (
-      <Grid fluid>
-        <Row>
-          <Col sm={3}>
-            <NavMenu />
-          </Col>
-          <Col sm={9}>
-            {this.props.children}
-          </Col>
-        </Row>
-      </Grid>
+      <div>
+        <div>
+          <br/>
+        </div>    
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={3}>
+                <NavMenu/>
+              </Grid.Column>
+              <Grid.Column width={13}>
+                {this.props.children}
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+      </div>
     );
   }
 }
