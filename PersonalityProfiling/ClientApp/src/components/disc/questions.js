@@ -9,6 +9,20 @@ export class Questions extends Component {
         data: QuestionsList
     }
 
+    mostD = 0;
+    mostI = 0;
+    mostS = 0;
+    mostC = 0;
+    mostTotal = 0;
+    showMost = false;
+
+    leastD = 0;
+    leastI = 0;
+    leastS = 0;
+    leastC = 0;
+    leastTotal = 0;
+    showLeast = false;
+
     mostSelected = (id, value) => {
         console.log(`Id: ${id} - Most : ${value}`);
         let i = id - 1;
@@ -44,6 +58,7 @@ export class Questions extends Component {
         let i = 0;
         let s = 0;
         let c = 0;
+        let star = 0;
         this.state.data.forEach(item => {
             switch (item.mostValue) {
                 case DiscEnum.D:
@@ -58,29 +73,79 @@ export class Questions extends Component {
                 case DiscEnum.C:
                     c++;
                 break;
+                case DiscEnum.star:
+                star++;
+                break;
                 default:
-                    console.log("items", item.mostValue);
                 break;
             }
         });
+        this.mostD = d;
+        this.mostI = i;
+        this.mostS = s;
+        this.mostC = c;
+        this.mostTotal = d + i + s + c + star;
+        this.showMost = this.mostTotal == 24;
+        if (this.showMost) {
+            return `MOST - D: ${d}    I: ${i}    S:    ${s}    C: ${c}   Star: ${star} - Total: ${this.mostTotal}`;
+        }
 
-        // return (
-        //     <Grid>
-        //         <Grid.Row>
-        //             D: {d}
-        //         </Grid.Row>
-        //         <Grid.Row>
-        //             I: {i}
-        //         </Grid.Row>
-        //         <Grid.Row>
-        //             S: {s} 
-        //         </Grid.Row>
-        //         <Grid.Row>
-        //             C: {c}
-        //         </Grid.Row>
-        //     </Grid>
-        //);
-        return `D: ${d} I: ${i} S: ${s} C: ${c}`;
+        let left = 24 - this.mostTotal;
+        return `You have ${left} Most items left to select.`;
+    }
+    
+    returnLeast() {
+        let d = 0;
+        let i = 0;
+        let s = 0;
+        let c = 0;
+        let star = 0;
+        this.state.data.forEach(item => {
+            switch (item.leastValue) {
+                case DiscEnum.D:
+                    d++;
+                break;
+                case DiscEnum.I:
+                    i++;
+                break;
+                case DiscEnum.S:
+                    s++;
+                break;
+                case DiscEnum.C:
+                    c++;
+                break;
+                case DiscEnum.star:
+                star++;
+                break;
+                default:
+                break;
+            }
+        });
+        this.leastD = d;
+        this.leastI = i;
+        this.leastS = s;
+        this.leastC = c;
+        this.leastTotal = d + i + s + c + star;
+        this.showLeast = this.leastTotal == 24;
+        if (this.showLeast) {
+            return `Least - D: ${d}    I: ${i}    S:    ${s}    C: ${c}   Star: ${star} - Total: ${this.leastTotal}`;
+        }
+
+        let left = 24 - this.leastTotal;
+        return `You have ${left} Least items left to select.`;
+    }
+
+    returnChange() {
+        let d = this.mostD - this.leastD;
+        let i = this.mostI - this.leastI;
+        let s = this.mostS - this.leastS;
+        let c = this.mostC - this.leastC;
+        
+        if (this.showMost && this.showLeast) {
+            return `Change - D: ${d}    I: ${i}    S:    ${s}    C: ${c}`;
+        }
+
+        return "";
     }
 
     render() {
@@ -93,10 +158,10 @@ export class Questions extends Component {
                     {this.returnMost()}
                 </Grid.Column>
                 <Grid.Column>
-                    
+                    {this.returnLeast()}
                 </Grid.Column>
                 <Grid.Column>
-                    
+                    {this.returnChange()}
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
