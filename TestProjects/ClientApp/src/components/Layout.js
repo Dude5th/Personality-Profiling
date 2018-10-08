@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react'
-import { NavMenu } from './navMenu/navMenu';
+import { NavMenu } from './navMenu/NavMenu';
 
 export class Layout extends Component {
   displayName = Layout.name;
