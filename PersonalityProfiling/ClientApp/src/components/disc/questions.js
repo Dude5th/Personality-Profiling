@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Grid } from 'semantic-ui-react';
+import { Grid, Button, Icon } from 'semantic-ui-react';
 import { MostLeastQuestion } from './mostLeastQuestions';
 import { QuestionsList } from './questionList'
 import { DiscEnum } from '../../models/discEnum';
+import { Link } from 'react-router-dom';
 
 export class Questions extends Component {
     state = {
@@ -24,7 +25,7 @@ export class Questions extends Component {
     showLeast = false;
 
     mostSelected = (id, value) => {
-        console.log(`Id: ${id} - Most : ${value}`);
+        //console.log(`Id: ${id} - Most : ${value}`);
         let i = id - 1;
         const data = this.state.data;
         data[i].mostValue = value;
@@ -33,7 +34,7 @@ export class Questions extends Component {
     }
 
     leastSelected = (id, value) => {
-        console.log(`Id: ${id} - Least : ${value}`);
+        //console.log(`Id: ${id} - Least : ${value}`);
         let i = id - 1;
         const data = this.state.data;
         data[i].leastValue = value;
@@ -73,10 +74,12 @@ export class Questions extends Component {
                 case DiscEnum.C:
                     c++;
                 break;
-                case DiscEnum.star:
-                star++;
+                case DiscEnum.Star:
+                case DiscEnum.Star2:
+                    star++;
                 break;
                 default:
+                    //console.log("unknown", item.mostValue)
                 break;
             }
         });
@@ -85,7 +88,7 @@ export class Questions extends Component {
         this.mostS = s;
         this.mostC = c;
         this.mostTotal = d + i + s + c + star;
-        this.showMost = this.mostTotal == 24;
+        this.showMost = this.mostTotal > 0;
         if (this.showMost) {
             return `MOST - D: ${d}    I: ${i}    S:    ${s}    C: ${c}   Star: ${star} - Total: ${this.mostTotal}`;
         }
@@ -114,8 +117,9 @@ export class Questions extends Component {
                 case DiscEnum.C:
                     c++;
                 break;
-                case DiscEnum.star:
-                star++;
+                case DiscEnum.Star:
+                case DiscEnum.Star2:
+                    star++;
                 break;
                 default:
                 break;
@@ -126,7 +130,7 @@ export class Questions extends Component {
         this.leastS = s;
         this.leastC = c;
         this.leastTotal = d + i + s + c + star;
-        this.showLeast = this.leastTotal == 24;
+        this.showLeast = this.leastTotal === 0;
         if (this.showLeast) {
             return `Least - D: ${d}    I: ${i}    S:    ${s}    C: ${c}   Star: ${star} - Total: ${this.leastTotal}`;
         }
@@ -136,16 +140,36 @@ export class Questions extends Component {
     }
 
     returnChange() {
-        let d = this.mostD - this.leastD;
-        let i = this.mostI - this.leastI;
-        let s = this.mostS - this.leastS;
-        let c = this.mostC - this.leastC;
+        // let d = this.mostD - this.leastD;
+        // let i = this.mostI - this.leastI;
+        // let s = this.mostS - this.leastS;
+        // let c = this.mostC - this.leastC;
         
-        if (this.showMost && this.showLeast) {
-            return `Change - D: ${d}    I: ${i}    S:    ${s}    C: ${c}`;
-        }
+        // if (this.showMost && this.showLeast) {
+        //     return `Change - D: ${d}    I: ${i}    S:    ${s}    C: ${c}`;
+        // }
 
-        return "";
+        return (
+            <Button animated
+                onClick={this.navigate}
+                as={Link}
+                to="/results">
+                <Button.Content visible>Show Results</Button.Content>
+                <Button.Content hidden>
+                    <Icon name='arrow right' />
+                </Button.Content>
+            </Button>
+        );
+    }
+
+    navigate() {
+        // TODO: send to component
+        // https://stackoverflow.com/questions/50616080/how-to-pass-state-in-react-router-to-components
+        // const state = NavigationActions.setParams({
+        //     params: { mostD: this.mostD, mostI: this.mostI, mostS: this.mostS, mostC: this.mostC },
+        //     key: "results"
+        // });
+        //this.props.navigation.dispatch(state);
     }
 
     render() {

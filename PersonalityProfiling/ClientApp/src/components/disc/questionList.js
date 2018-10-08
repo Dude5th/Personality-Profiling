@@ -11,7 +11,7 @@ export const QuestionsList = [
     DiscEnum.D, DiscEnum.D, "",
     DiscEnum.C, DiscEnum.C, "",
     DiscEnum.Star, DiscEnum.I, "",
-    DiscEnum.Star, DiscEnum.S, ""),
+    DiscEnum.Star2, DiscEnum.S, ""),
     new MostLeastQuestionsModel(3,
     DiscEnum.Star, DiscEnum.C, "",
     DiscEnum.D, DiscEnum.D, "",
@@ -31,7 +31,7 @@ export const QuestionsList = [
     new MostLeastQuestionsModel(6,
     DiscEnum.D, DiscEnum.D, "",
     DiscEnum.Star, DiscEnum.I, "",
-    DiscEnum.Star, DiscEnum.D, "",
+    DiscEnum.Star2, DiscEnum.D, "",
     DiscEnum.C, DiscEnum.Star, ""),
 
     new MostLeastQuestionsModel(7,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Header, Button, Icon } from 'semantic-ui-react';
 
 export class Counter extends Component {
   displayName = Counter.name
@@ -18,13 +19,21 @@ export class Counter extends Component {
   render() {
     return (
       <div>
-        <h1>Counter</h1>
+        <Header as="h1">Counter</Header>
+
+        {/* <h1>Counter</h1> */}
 
         <p>This is a simple example of a React component.</p>
 
         <p>Current count: <strong>{this.state.currentCount}</strong></p>
 
-        <button onClick={this.incrementCounter}>Increment</button>
+        <Button primary animated onClick={this.incrementCounter}>
+          <Button.Content visible>Increment</Button.Content>
+          <Button.Content hidden>
+            <Icon name="arrow circle up"/>
+          </Button.Content>
+        </Button>
+        {/* <button onClick={this.incrementCounter}>Increment</button> */}
       </div>
     );
   }

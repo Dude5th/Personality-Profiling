@@ -4,5 +4,6 @@ export const DiscEnum = Object.freeze({
     I: 2,
     S: 3,
     C: 4,
-    Star: 5
+    Star: 5,
+    Star2: 6
 });
