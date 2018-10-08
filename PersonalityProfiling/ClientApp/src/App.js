@@ -10,7 +10,10 @@ import { Results } from './components/Results';
 export default class App extends Component {
   displayName = App.name
 
-  ShowResults(stateProps) {
+  data = null;
+
+  onShowResults(stateProps) {
+    this.data = stateProps;
     console.log("passed state",stateProps);
   }
 
@@ -20,8 +23,8 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetchData' component={FetchData} />
-        <Route path='/questions' component={Questions} />
-        <Route path='/results' component={Results}/>
+        <Route path='/questions' render={() => <Questions showResults={this.onShowResults.bind(this)}/>} />
+        <Route path='/results' render={() => <Results data={this.data} />}/>
       </Layout>
     );
   }

@@ -88,7 +88,7 @@ export class Questions extends Component {
         this.mostS = s;
         this.mostC = c;
         this.mostTotal = d + i + s + c + star;
-        this.showMost = this.mostTotal > 0;
+        this.showMost = this.mostTotal === 24;
         if (this.showMost) {
             return `MOST - D: ${d}    I: ${i}    S:    ${s}    C: ${c}   Star: ${star} - Total: ${this.mostTotal}`;
         }
@@ -130,7 +130,7 @@ export class Questions extends Component {
         this.leastS = s;
         this.leastC = c;
         this.leastTotal = d + i + s + c + star;
-        this.showLeast = this.leastTotal === 0;
+        this.showLeast = this.leastTotal === 24;
         if (this.showLeast) {
             return `Least - D: ${d}    I: ${i}    S:    ${s}    C: ${c}   Star: ${star} - Total: ${this.leastTotal}`;
         }
@@ -140,20 +140,20 @@ export class Questions extends Component {
     }
 
     returnChange() {
-        // let d = this.mostD - this.leastD;
-        // let i = this.mostI - this.leastI;
-        // let s = this.mostS - this.leastS;
-        // let c = this.mostC - this.leastC;
+        let d = this.mostD - this.leastD;
+        let i = this.mostI - this.leastI;
+        let s = this.mostS - this.leastS;
+        let c = this.mostC - this.leastC;
         
-        // if (this.showMost && this.showLeast) {
-        //     return `Change - D: ${d}    I: ${i}    S:    ${s}    C: ${c}`;
-        // }
+        if (this.showMost && this.showLeast) {
+            return `Change - D: ${d}    I: ${i}    S:    ${s}    C: ${c}`;
+        }
 
         return (
             <Button animated
-                onClick={this.navigate}
                 as={Link}
-                to="/results">
+                to="/results"
+                onClick={this.onShowResults.bind(this)}>
                 <Button.Content visible>Show Results</Button.Content>
                 <Button.Content hidden>
                     <Icon name='arrow right' />
@@ -162,36 +162,39 @@ export class Questions extends Component {
         );
     }
 
-    navigate() {
-        // TODO: send to component
-        // https://stackoverflow.com/questions/50616080/how-to-pass-state-in-react-router-to-components
-        // const state = NavigationActions.setParams({
-        //     params: { mostD: this.mostD, mostI: this.mostI, mostS: this.mostS, mostC: this.mostC },
-        //     key: "results"
-        // });
-        //this.props.navigation.dispatch(state);
+    onShowResults() {
+        const data = {
+            mostD: this.mostD,
+            mostI: this.mostI,
+            mostS: this.mostS,
+            mostC: this.mostC,
+            leastD: this.leastD,
+            leastI: this.leastI,
+            leastS: this.leastS,
+            leastC: this.leastC
+        };
+        this.props.showResults(data);
     }
 
     render() {
         
         return (
-
-        <Grid columns={3} divided="vertically">
-            <Grid.Row>
-                <Grid.Column>
-                    {this.returnMost()}
-                </Grid.Column>
-                <Grid.Column>
-                    {this.returnLeast()}
-                </Grid.Column>
-                <Grid.Column>
-                    {this.returnChange()}
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                {this.renderItems()}
-            </Grid.Row>
-        </Grid>
+            <Grid columns={3} divided="vertically">
+                <Grid.Row>
+                    <Grid.Column>
+                        {this.returnMost()}
+                    </Grid.Column>
+                    <Grid.Column>
+                        {this.returnLeast()}
+                    </Grid.Column>
+                    <Grid.Column>
+                        {this.returnChange()}
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    {this.renderItems()}
+                </Grid.Row>
+            </Grid>
         );
     }
 }

@@ -35,10 +35,10 @@ export class MostLeastQuestion extends Component {
         <Grid columns={2} celled>
             <Grid.Row>
                 <Grid.Column width={2}>
-                    Most
+                    M
                 </Grid.Column>
                 <Grid.Column width={2}>
-                    Least
+                    L
                 </Grid.Column>
                 <Grid.Column width={12}>
                     Description
