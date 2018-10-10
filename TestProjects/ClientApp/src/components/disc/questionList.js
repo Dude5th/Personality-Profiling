@@ -6,7 +6,7 @@ export const QuestionsList = [
     DiscEnum.S, DiscEnum.S, "Easy-going, Agreeable",
     DiscEnum.I, DiscEnum.I, "Trusting, Believing in others",
     DiscEnum.Star, DiscEnum.D, "Adventurous, Risk taker",
-    DiscEnum.C, DiscEnum.D, "Tolerant, Respectful"),
+    DiscEnum.C, DiscEnum.C, "Tolerant, Respectful"),
     new MostLeastQuestionsModel(2,
     DiscEnum.D, DiscEnum.D, "",
     DiscEnum.C, DiscEnum.C, "",

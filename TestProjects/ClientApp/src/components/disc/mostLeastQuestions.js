@@ -3,8 +3,8 @@ import { Radio, Grid } from 'semantic-ui-react';
 
 export class MostLeastQuestion extends Component {
     state = {
-        most: 0,
-        least: 0,
+        most: this.props.model.mostValue,
+        least: this.props.model.leastValue,
         id: this.props.model.id
     }
 

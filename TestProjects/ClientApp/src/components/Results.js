@@ -16,7 +16,7 @@ export class Results extends Component {
     }
 
     render() {
-        if (this.state.data === null) {
+        if (this.props.data === null) {
             return (
                 <div>
                     <Header as="h1">Personality System Graph</Header>
@@ -25,7 +25,7 @@ export class Results extends Component {
             );
         }
 
-        const { mostD, mostI, mostS, mostC, leastD, leastI, leastS, leastC } = this.state.data;
+        const { mostD, mostI, mostS, mostC, leastD, leastI, leastS, leastC } = this.props.data;
 
         const diffD = mostD - leastD;
         const diffI = mostI - leastI;

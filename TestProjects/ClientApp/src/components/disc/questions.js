@@ -25,26 +25,25 @@ export class Questions extends Component {
     showLeast = false;
 
     mostSelected = (id, value) => {
-        //console.log(`Id: ${id} - Most : ${value}`);
+        console.log(`Id: ${id} - Most : ${value}`);
         let i = id - 1;
-        const data = this.state.data;
+        const { data } = this.state;
         data[i].mostValue = value;
-        
-        this.forceUpdate();
+        this.setState({ data: data });
+        //this.forceUpdate();
     }
 
     leastSelected = (id, value) => {
         //console.log(`Id: ${id} - Least : ${value}`);
         let i = id - 1;
-        const data = this.state.data;
+        const { data } = this.state;
         data[i].leastValue = value;
-        
-        this.forceUpdate();
+        this.setState({ data: data });
     }
 
     renderItems() {
         const { data } = this.state;
-        //console.log("data:", data);
+        console.log("data:", data);
         return data.map((item, i) => {
             return (
             <Grid.Column key={i}>
