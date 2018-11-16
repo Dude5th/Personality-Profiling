@@ -48,10 +48,30 @@ export class NavMenu extends Component {
                 name='questions'
                 as={ NavLink }
                 to='/questions'>
-                {/* active={activeItem === 'questions'}
-                onClick={this.handleItemClick}> */}
-                <Icon name="user secret"/>
+                <Icon name="user"/>
                 Personality Profiler
+            </Menu.Item>
+            <Menu.Item>
+                <Icon name="spy"/>
+                <Menu.Header>Type of style</Menu.Header>
+                <Menu.Menu>
+                    <Menu.Item
+                        name='dStyle'
+                        as={ NavLink }
+                        to='/dStyle' />
+                    <Menu.Item
+                        name='iStyle'
+                        as={ NavLink }
+                        to='/iStyle' />
+                    <Menu.Item
+                        name='sStyle'
+                        as={ NavLink }
+                        to='/sStyle' />
+                    <Menu.Item
+                        name='cStyle'
+                        as={ NavLink }
+                        to='/cStyle' />
+                </Menu.Menu>
             </Menu.Item>
         </Menu>
         );

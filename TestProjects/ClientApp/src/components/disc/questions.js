@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, Button, Icon } from 'semantic-ui-react';
 import { MostLeastQuestion } from './mostLeastQuestions';
-import { QuestionsList } from './questionList'
+import { QuestionsList } from '../../models/questionList'
 import { DiscEnum } from '../../models/discEnum';
 import { Link } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ export class Questions extends Component {
     showLeast = false;
 
     mostSelected = (id, value) => {
-        console.log(`Id: ${id} - Most : ${value}`);
+        //console.log(`Id: ${id} - Most : ${value}`);
         let i = id - 1;
         const { data } = this.state;
         data[i].mostValue = value;
@@ -43,7 +43,7 @@ export class Questions extends Component {
 
     renderItems() {
         const { data } = this.state;
-        console.log("data:", data);
+        //console.log("data:", data);
         return data.map((item, i) => {
             return (
             <Grid.Column key={i}>
@@ -52,7 +52,16 @@ export class Questions extends Component {
             );
         });
     }
-    
+   
+    componentWillUnmount() {
+        localStorage.setItem('thisState', JSON.stringify(this.state))
+    }
+
+    componentWillMount() {
+        const rehydrate = JSON.parse(localStorage.getItem('thisState'))
+        this.setState(rehydrate)
+    }
+
     returnMost() {
         let d = 0;
         let i = 0;
@@ -149,16 +158,33 @@ export class Questions extends Component {
         }
 
         return (
-            <Button animated
-                as={Link}
-                to="/results"
-                onClick={this.onShowResults.bind(this)}>
-                <Button.Content visible>Show Results</Button.Content>
-                <Button.Content hidden>
-                    <Icon name='arrow right' />
-                </Button.Content>
-            </Button>
+            <div>
+                <Button animated
+                    as={Link}
+                    to="/results"
+                    disabled={!this.showLeast && !this.showMost}
+                    onClick={this.onShowResults.bind(this)}>
+                    <Button.Content visible>Show Results</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='arrow right' />
+                    </Button.Content>
+                </Button>
+                <Button
+                    onClick={this.onClear.bind(this)}>
+                    <Button.Content>Clear</Button.Content>
+                </Button>
+            </div>
         );
+    }
+
+    onClear() {
+        
+        const { data } = this.state;
+        data.forEach(element => {
+            element.leastValue = DiscEnum.None;
+            element.mostValue = DiscEnum.None;
+        });
+        this.setState({ data: data });
     }
 
     onShowResults() {
@@ -178,22 +204,35 @@ export class Questions extends Component {
     render() {
         
         return (
-            <Grid columns={3} divided="vertically">
-                <Grid.Row>
-                    <Grid.Column>
-                        {this.returnMost()}
-                    </Grid.Column>
-                    <Grid.Column>
-                        {this.returnLeast()}
-                    </Grid.Column>
-                    <Grid.Column>
-                        {this.returnChange()}
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                    {this.renderItems()}
-                </Grid.Row>
-            </Grid>
+            <div>
+                <Grid columns={3} divided="vertically">
+                    <Grid.Row>
+                        <Grid.Column>
+                            {this.returnMost()}
+                        </Grid.Column>
+                        <Grid.Column>
+                            {this.returnLeast()}
+                        </Grid.Column>
+                        <Grid.Column>
+                            {this.returnChange()}
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        {this.renderItems()}
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            {this.returnMost()}
+                        </Grid.Column>
+                        <Grid.Column>
+                            {this.returnLeast()}
+                        </Grid.Column>
+                        <Grid.Column>
+                            {this.returnChange()}
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </div>
         );
     }
 }
